@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
-from typograph import *
-import json
+import typograph as tp
 
 app = Flask(__name__)
 
@@ -9,7 +8,7 @@ app = Flask(__name__)
 def form():
     if request.method == 'POST':
         input_text = request.form['text']
-        return handle_text(input_text)
+        return tp.handle_text(input_text)
     else:
         return render_template('form.html')
 
