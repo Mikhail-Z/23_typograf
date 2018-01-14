@@ -1,13 +1,15 @@
 # Typograf Service
 
 ## Project Description
-This service modifies your text before publication in internet.
+This service modifies your text in **English** and **Russian** before publication in internet.
 What it does:
 * changes '' and "" to «»
-* changes hyphen to dash where it is required
-* 
+* changes hyphen to long dash where it is required
+* changes hyphen to short dash in phone numbers
+* changes space to non breaking space after short words and numbers
+* deletes extra line breaks and extra spaces
 ## System requirements
-Any modern web-browser required.
+Any modern web-browser is required.
 
 ## Installation
 ```
