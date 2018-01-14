@@ -5,7 +5,7 @@ non_breaking_space = '\u00A0'
 
 patterns4change_and_replacements = [
     # replace quotes ''/"" to «»
-    (re.compile(r'[\'\"](.*)[\'\"]', re.DOTALL), r'«\1»'),
+    (re.compile(r'[\'\"](.*?)[\'\"]', re.DOTALL), r'«\1»'),
     # text without double spaces
     (re.compile(r' {2,}'), ' '),
     # text without space in begin end
