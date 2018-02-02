@@ -1,3 +1,4 @@
+{% from "_formhelper.html" import render_field %}
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -7,10 +8,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Типограф">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
 
     <title>Типограф</title>
-
+    <link href="/static/css/my.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
   </head>
@@ -24,27 +24,32 @@
     </nav>
     <div class="container">
       <form method="POST">
-        <div class="form-group">
-          <textarea id="inputForm" name="text" class="form-control" rows="10" placeholder="Введите текст" autofocus></textarea>
-        </div>
+        {{ form.csrf_token }}
+        {{ render_field(form.input_text) }}
         <div class="form-group">
             <button id="submitBtn" class="btn btn-primary" type="button">Сделать красиво</button>
         </div>
         <div class="form-group">
-          <textarea id="resultForm" class="form-control" rows="10" placeholder="Здесь будет результат" disabled="disabled"></textarea>
+          <textarea id="result_text" class="form-control" rows="10" placeholder="Здесь будет результат" disabled="disabled"></textarea>
         </div>
       </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
+        var csrf_token = $("#csrf_token").val();
+        $.ajaxSetup({
+            headers: {
+                'X-Csrf-Token': csrf_token
+            }
+        });
         $('#submitBtn').click(function () {
             $.ajax({
                 url: '/',
-                data: $('#inputForm').serialize(),
+                data: $('#input_text').serialize(),
                 type: 'POST',
                 success: function (response) {
-                    $('#resultForm').text(response);
+                    $('#result_text').text(response);
                 }
             });
         });
