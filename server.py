@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import typograph as tp
+from typograph import handle_text
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from wtforms.fields import TextAreaField
@@ -20,8 +20,7 @@ def form():
     form = Text4ChangeForm()
     if request.method == 'POST':
         input_text = request.form['input_text']
-        print(input_text)
-        return tp.handle_text(input_text)
+        return handle_text(input_text)
     else:
         return render_template('form.html', form=form)
 
